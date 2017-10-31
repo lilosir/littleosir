@@ -44,7 +44,7 @@ router.post('/', function(req, res, next) {
 				result.contextOut = [{"name":"weather", "lifespan":2, "parameters":{"geo-city":queryParameters['geo-city'], "date": date}}]
 
 		    res.set({'Content-type': 'application/json'});
-			  res.send(result);
+			  res.jsonp(result);
 			});
 		});
 	});
