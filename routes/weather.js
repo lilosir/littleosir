@@ -6,10 +6,14 @@ var YQL = require('yql');
 
 /* post to weather. */
 router.post('/', function(req, res, next) {
+
+	// console.log(req.body.result['resolvedQuery'])
 	
-	// var { text, place, date, 'geo-city' } = req.body.result.parameters;
-	var queryParameters = = req.body.result.parameters;
-	var { resolvedQuery } = req.body.result.resolvedQuery;
+	var queryParameters = req.body.result.parameters;
+	var { resolvedQuery } = req.body.result;
+	console.log(queryParameters)
+	var sessionId = req.body.sessionId;
+
 	var result = {
 		speech: "",
 		displayText: "",
@@ -18,9 +22,7 @@ router.post('/', function(req, res, next) {
 		source: ""
 	};
 
-  var dialogFlowRequest = app.textRequest(resolvedQuery, {
-    sessionId: '123123123'
-	});
+  var dialogFlowRequest = app.textRequest(resolvedQuery, { sessionId });
 
 	dialogFlowRequest.on('response', function(response) {
     console.log('response: ', response);
@@ -35,7 +37,7 @@ router.post('/', function(req, res, next) {
 				if(error) {
 					res.status(500).send('error: ' + error);
 				}
-				console.log(weathers.query.results.channel.item.condition);
+				// console.log(weathers.query.results.channel.item.condition);
 				var { date, temp, text } = weathers.query.results.channel.item.condition;
 				result.speech = `In ${queryParameters['geo-city']}, it will be ${temp}, ${text}, ${date}`;
 				result.displayText = `In ${queryParameters['geo-city']}, it will be ${temp}, ${text}, ${date}`;
