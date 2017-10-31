@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
     "contextOut": [
         {
             "name": "weather",
-            "lifespan": 2,
+            "lifespan": 100,
             "parameters": {
                 "geo-city": "London",
                 "date": "Tue, 31 Oct 2017 05:00 PM GMT"
